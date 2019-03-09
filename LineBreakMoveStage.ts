@@ -29,8 +29,8 @@ const drawLBMNode : Function = (context : CanvasRenderingContext2D, i : number, 
     context.translate(w / 2, gap * (i + 1))
     for (var j = 0; j < lines; j++) {
         const sf : number = 1 - 2 * j
-        const sc1j : number = divideScale(scale, j, lines)
-        const sc2j : number = divideScale(scale, j, lines)
+        const sc1j : number = divideScale(sc1, j, lines)
+        const sc2j : number = divideScale(sc2, j, lines)
         context.save()
         context.translate(w / 2 * sf * sc2j, 0)
         context.rotate(Math.PI/2 * sc1j)
