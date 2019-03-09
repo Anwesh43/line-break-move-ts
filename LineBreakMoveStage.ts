@@ -181,3 +181,24 @@ class LineBreakMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    lbm : LineBreakMover = new LineBreakMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lbm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
