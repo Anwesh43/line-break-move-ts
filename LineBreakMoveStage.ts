@@ -19,8 +19,8 @@ const updateValue : Function = (scale : number, dir : number, a : number, b : nu
 
 const drawLBMNode : Function = (context : CanvasRenderingContext2D, i : number, scale : number) => {
     const gap : number = h / (nodes + 1)
-    const sc1 : number = divideScale(scale, 0, 2)
-    const sc2 : number = divideScale(scale, 1, 2)
+    const sc1 : number = divideScale(scale, 0, lines)
+    const sc2 : number = divideScale(scale, 1, lines)
     const size : number = gap / sizeFactor
     context.strokeStyle = foreColor
     context.lineCap = 'round'
@@ -29,8 +29,8 @@ const drawLBMNode : Function = (context : CanvasRenderingContext2D, i : number, 
     context.translate(w / 2, gap * (i + 1))
     for (var j = 0; j < lines; j++) {
         const sf : number = 1 - 2 * j
-        const sc1j : number = divideScale(scale, 0, 2)
-        const sc2j : number = divideScale(scale, 1, 2)
+        const sc1j : number = divideScale(scale, j, lines)
+        const sc2j : number = divideScale(scale, j, lines)
         context.save()
         context.translate(w / 2 * sf * sc2j, 0)
         context.rotate(Math.PI/2 * sc1j)
@@ -83,7 +83,7 @@ class State {
     prevScale : number = 0
 
     update(cb : Function) {
-        this.scale += updateValue(this.scale, this.dir, lines, 1)
+        this.scale += updateValue(this.scale, this.dir, lines, lines)
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir
             this.dir = 0
